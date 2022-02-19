@@ -1,12 +1,16 @@
 import { GetStaticPaths, GetStaticProps } from 'next';
 
+import { nanoid } from 'nanoid';
 import Prismic from '@prismicio/client';
 import { format } from 'date-fns';
 import ptBR from 'date-fns/locale/pt-BR';
 import { RichText } from 'prismic-dom';
+import { useRouter } from 'next/router';
+import { FiCalendar, FiClock, FiUser } from 'react-icons/fi';
 import { getPrismicClient } from '../../services/prismic';
 import commonStyles from '../../styles/common.module.scss';
 import styles from './post.module.scss';
+import Header from '../../components/Header';
 
 interface Post {
   first_publication_date: string | null;
@@ -30,25 +34,60 @@ interface PostProps {
 }
 
 export default function Post({ post }: PostProps): JSX.Element {
-  const readingTime = post.data.content.reduce((acc, el) => {
-    let a = '';
-    a += RichText.asText(el.body);
+  const router = useRouter();
 
-    return a;
-  }, '');
+  const readingTime = Math.ceil(
+    post.data.content
+      .reduce((acc, el) => {
+        return acc + RichText.asText(el.body);
+      }, '')
+      .split(' ').length / 200
+  );
 
-  console.log(readingTime);
+  const content = post.data.content.map(el => ({
+    ...el,
+    uid: nanoid(),
+  }));
 
-  return (
-    <article>
+  return router.isFallback ? (
+    <main className={styles.loading}>Carregando...</main>
+  ) : (
+    <main className={`${commonStyles.container} ${styles.container}`}>
+      <Header />
+
+      <img className={styles.banner} src={post.data.banner.url} alt="banner" />
+
       <h1>{post.data.title}</h1>
-      <time>
-        {format(new Date(post.first_publication_date), 'dd MMM yyyy', {
-          locale: ptBR,
-        })}
-      </time>
-      <span>{post.data.author}</span>
-    </article>
+
+      <div className={commonStyles.postInfo}>
+        <figure>
+          <FiCalendar size={18} />
+          {format(new Date(post.first_publication_date), 'dd MMM yyyy', {
+            locale: ptBR,
+          })}
+        </figure>
+        <figure>
+          <FiUser size={18} />
+          {post.data.author}
+        </figure>
+        <figure>
+          <FiClock size={18} /> {readingTime} min
+        </figure>
+      </div>
+
+      <article className={styles.post}>
+        {content.map(el => (
+          <section key={el.uid}>
+            <h2>{el.heading}</h2>
+
+            <div
+              className={styles.postContent}
+              dangerouslySetInnerHTML={{ __html: RichText.asHtml(el.body) }}
+            />
+          </section>
+        ))}
+      </article>
+    </main>
   );
 }
 
@@ -89,8 +128,6 @@ export const getStaticProps: GetStaticProps = async context => {
       content: response.data.content,
     },
   };
-
-  console.log(JSON.stringify(post, null, 2));
 
   return {
     props: {

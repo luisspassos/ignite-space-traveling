@@ -1,1 +1,46 @@
-// TODO
+.postContainer {
+  > img {
+    margin: 3.2rem 0;
+  }
+
+  .loadMorePosts {
+    background-color: transparent;
+    border: 0;
+    margin-top: 3rem;
+
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--pink-200);
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+}
+
+.post {
+  list-style: none;
+  cursor: pointer;
+  transition: 0.2s;
+
+  &:hover {
+    filter: brightness(0.8);
+  }
+
+  & + .post {
+    margin-top: 2.3rem;
+  }
+
+  h1 {
+    color: var(--gray-50);
+    font-size: 1.7rem;
+  }
+
+  h2 {
+    font-weight: normal;
+    font-size: 1.1rem;
+    line-height: 1.7rem;
+
+    margin: 0.3rem 0 1.1rem;
+  }
+}

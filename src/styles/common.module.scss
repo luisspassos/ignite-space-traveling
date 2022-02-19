@@ -1,1 +1,22 @@
-// TODO
+.container {
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 0 2rem 1rem;
+}
+
+.postInfo {
+  display: flex;
+  gap: 1.8rem;
+
+  figure:first-child {
+    text-transform: capitalize;
+  }
+
+  figure {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+
+    font-size: 0.9rem;
+  }
+}
