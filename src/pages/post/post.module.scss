@@ -27,6 +27,7 @@
 
   .containerOfOtherPosts {
     display: flex;
+    gap: 1rem;
 
     margin-bottom: 2.5rem;
 
@@ -61,6 +62,15 @@
       font-size: 1rem;
     }
   }
+
+  .edited {
+    color: var(--gray-400);
+    font-size: 0.9rem;
+    font-style: italic;
+
+    display: block;
+    margin-top: 1rem;
+  }
 }
 
 .post {
@@ -75,6 +85,7 @@
   h2 {
     font-size: 1.8rem;
     margin-bottom: 3.5rem;
+    word-break: break-word;
   }
 
   .postContent {

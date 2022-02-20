@@ -18,6 +18,7 @@ import { PreviewDataType } from '../../types';
 
 interface Post {
   first_publication_date: string | null;
+  editDate: string | null;
   data: {
     title: string;
     banner: {
@@ -33,10 +34,10 @@ interface Post {
   };
 }
 
-interface AnotherPost {
+type AnotherPost = {
   uid: string;
   title: string;
-}
+} | null;
 
 interface PostProps {
   post: Post;
@@ -92,6 +93,10 @@ export default function Post({
         </figure>
       </div>
 
+      {post.editDate && (
+        <small className={styles.edited}>{post.editDate}</small>
+      )}
+
       <article className={styles.post}>
         {content.map(el => (
           <section key={el.uid}>
@@ -99,6 +104,7 @@ export default function Post({
 
             <div
               className={styles.postContent}
+              // eslint-disable-next-line react/no-danger
               dangerouslySetInnerHTML={{ __html: RichText.asHtml(el.body) }}
             />
           </section>
@@ -109,7 +115,7 @@ export default function Post({
 
       <div className={styles.containerOfOtherPosts}>
         {prevPost && (
-          <Link href={prevPost.uid}>
+          <Link href={`/post/${prevPost.uid}`}>
             <a className={styles.prevPost}>
               <h3>{prevPost.title}</h3>
               <small>Post anterior</small>
@@ -118,7 +124,7 @@ export default function Post({
         )}
 
         {nextPost && (
-          <Link href={nextPost.uid}>
+          <Link href={`/post/${nextPost.uid}`}>
             <a className={styles.nextPost}>
               <h3>{nextPost.title}</h3>
               <small>Próximo post</small>
@@ -188,6 +194,16 @@ export const getStaticProps: GetStaticProps<PostProps> = async ({
   const post = {
     uid: response.uid,
     first_publication_date: response.first_publication_date,
+    editDate:
+      response.first_publication_date === response.last_publication_date
+        ? null
+        : format(
+            new Date(response.last_publication_date),
+            "'* editado em' dd MMM yyyy, 'ás' k:m",
+            {
+              locale: ptBR,
+            }
+          ),
     data: {
       title: response.data.title,
       subtitle: response.data.subtitle,

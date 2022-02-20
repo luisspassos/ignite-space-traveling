@@ -5,6 +5,7 @@ import { getPrismicClient } from '../../services/prismic';
 export default async (
   req: NextApiRequest,
   res: NextApiResponse
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
 ): Promise<void | NextApiResponse<any>> => {
   function linkResolver(doc: Document): string {
     if (doc.type === 'post') {
