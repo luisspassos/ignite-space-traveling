@@ -194,15 +194,19 @@ export const getStaticProps: GetStaticProps<PostProps> = async ({
     },
   };
 
-  const prevPost = {
-    uid: prevPostData?.uid ?? null,
-    title: prevPostData?.data.title ?? null,
-  };
+  const prevPost = prevPostData
+    ? {
+        uid: prevPostData.uid,
+        title: prevPostData.data.title,
+      }
+    : null;
 
-  const nextPost = {
-    uid: nextPostData?.uid ?? null,
-    title: nextPostData?.data.title ?? null,
-  };
+  const nextPost = nextPostData
+    ? {
+        uid: nextPostData.uid,
+        title: nextPostData.data.title,
+      }
+    : null;
 
   return {
     props: {
