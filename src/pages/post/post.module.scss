@@ -27,15 +27,20 @@
 
   .containerOfOtherPosts {
     display: flex;
-    justify-content: space-between;
 
     margin-bottom: 2.5rem;
 
     a {
       transition: filter 0.2s;
+      width: 50%;
     }
 
-    a:last-child {
+    a.prevPost {
+      margin-right: auto;
+    }
+
+    a.nextPost {
+      margin-left: auto;
       text-align: right;
     }
 

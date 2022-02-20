@@ -34,8 +34,8 @@ interface Post {
 }
 
 interface AnotherPost {
-  uid: string | null;
-  title: string | null;
+  uid: string;
+  title: string;
 }
 
 interface PostProps {
@@ -108,18 +108,23 @@ export default function Post({
       <hr className={styles.dividingLine} />
 
       <div className={styles.containerOfOtherPosts}>
-        <Link href="/">
-          <a>
-            <h3>Como utilizar hooks</h3>
-            <small>Post anterior</small>
-          </a>
-        </Link>
-        <Link href="/">
-          <a>
-            <h3>Criando um app CRA do Zero</h3>
-            <small>Próximo post</small>
-          </a>
-        </Link>
+        {prevPost && (
+          <Link href={prevPost.uid}>
+            <a className={styles.prevPost}>
+              <h3>{prevPost.title}</h3>
+              <small>Post anterior</small>
+            </a>
+          </Link>
+        )}
+
+        {nextPost && (
+          <Link href={nextPost.uid}>
+            <a className={styles.nextPost}>
+              <h3>{nextPost.title}</h3>
+              <small>Próximo post</small>
+            </a>
+          </Link>
+        )}
       </div>
 
       <Comments />
