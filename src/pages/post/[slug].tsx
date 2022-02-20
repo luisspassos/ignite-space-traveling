@@ -7,11 +7,14 @@ import ptBR from 'date-fns/locale/pt-BR';
 import { RichText } from 'prismic-dom';
 import { useRouter } from 'next/router';
 import { FiCalendar, FiClock, FiUser } from 'react-icons/fi';
+import Link from 'next/link';
 import { getPrismicClient } from '../../services/prismic';
 import commonStyles from '../../styles/common.module.scss';
 import styles from './post.module.scss';
 import Header from '../../components/Header';
 import { Comments } from '../../components/Comments';
+import { ExitPreviewButton } from '../../components/ExitPreviewButton';
+import { PreviewDataType } from '../../types';
 
 interface Post {
   first_publication_date: string | null;
@@ -32,9 +35,10 @@ interface Post {
 
 interface PostProps {
   post: Post;
+  preview: boolean;
 }
 
-export default function Post({ post }: PostProps): JSX.Element {
+export default function Post({ post, preview }: PostProps): JSX.Element {
   const router = useRouter();
 
   const readingTime = Math.ceil(
@@ -90,7 +94,25 @@ export default function Post({ post }: PostProps): JSX.Element {
       </article>
 
       <hr className={styles.dividingLine} />
+
+      <div className={styles.containerOfOtherPosts}>
+        <Link href="/">
+          <a>
+            <h3>Como utilizar hooks</h3>
+            <small>Post anterior</small>
+          </a>
+        </Link>
+        <Link href="/">
+          <a>
+            <h3>Criando um app CRA do Zero</h3>
+            <small>Próximo post</small>
+          </a>
+        </Link>
+      </div>
+
       <Comments />
+
+      {preview && <ExitPreviewButton />}
     </main>
   );
 }
@@ -113,13 +135,20 @@ export const getStaticPaths: GetStaticPaths = async () => {
   };
 };
 
-export const getStaticProps: GetStaticProps = async context => {
-  const { slug } = context.params;
+export const getStaticProps: GetStaticProps<PostProps> = async ({
+  params,
+  previewData,
+  preview = false,
+}) => {
+  const { slug } = params;
+
+  const previewDataFormatted = previewData as PreviewDataType;
+
+  const previewRef = previewDataFormatted ? previewDataFormatted.ref : null;
+  const refOption = previewRef ? { ref: previewRef } : null;
 
   const prismic = getPrismicClient();
-  const response = await prismic.getByUID('post', String(slug), {});
-
-  console.log(response);
+  const response = await prismic.getByUID('post', String(slug), refOption);
 
   const post = {
     uid: response.uid,
@@ -138,6 +167,7 @@ export const getStaticProps: GetStaticProps = async context => {
   return {
     props: {
       post,
+      preview,
     },
   };
 };
