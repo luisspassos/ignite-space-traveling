@@ -66,7 +66,7 @@ export default function Home({
       <ul>
         {posts.map(post => (
           <Link key={post.uid} href={`/post/${post.uid}`}>
-            <li className={styles.post}>
+            <a className={styles.post}>
               <h1>{post.data.title}</h1>
               <h2>{post.data.subtitle}</h2>
 
@@ -86,7 +86,7 @@ export default function Home({
                   {post.data.author}
                 </figure>
               </div>
-            </li>
+            </a>
           </Link>
         ))}
       </ul>
@@ -117,7 +117,7 @@ export const getStaticProps: GetStaticProps<HomeProps> = async ({
     {
       fetch: ['post.title', 'post.subtitle', 'post.author'],
       pageSize: 2,
-      ref: previewDataFormatted.ref ?? null,
+      ref: previewDataFormatted?.ref ?? null,
     }
   );
 

@@ -33,12 +33,24 @@ interface Post {
   };
 }
 
+interface AnotherPost {
+  uid: string | null;
+  title: string | null;
+}
+
 interface PostProps {
   post: Post;
   preview: boolean;
+  prevPost: AnotherPost;
+  nextPost: AnotherPost;
 }
 
-export default function Post({ post, preview }: PostProps): JSX.Element {
+export default function Post({
+  post,
+  preview,
+  prevPost,
+  nextPost,
+}: PostProps): JSX.Element {
   const router = useRouter();
 
   const readingTime = Math.ceil(
@@ -150,6 +162,24 @@ export const getStaticProps: GetStaticProps<PostProps> = async ({
   const prismic = getPrismicClient();
   const response = await prismic.getByUID('post', String(slug), refOption);
 
+  const prevPostData = (
+    await prismic.query(Prismic.predicates.at('document.type', 'post'), {
+      fetch: ['post.title'],
+      pageSize: 1,
+      after: response.id,
+      orderings: '[document.first_publication_date]',
+    })
+  ).results[0];
+
+  const nextPostData = (
+    await prismic.query(Prismic.predicates.at('document.type', 'post'), {
+      fetch: ['post.title'],
+      pageSize: 1,
+      after: response.id,
+      orderings: '[document.first_publication_date desc]',
+    })
+  ).results[0];
+
   const post = {
     uid: response.uid,
     first_publication_date: response.first_publication_date,
@@ -164,10 +194,22 @@ export const getStaticProps: GetStaticProps<PostProps> = async ({
     },
   };
 
+  const prevPost = {
+    uid: prevPostData?.uid ?? null,
+    title: prevPostData?.data.title ?? null,
+  };
+
+  const nextPost = {
+    uid: nextPostData?.uid ?? null,
+    title: nextPostData?.data.title ?? null,
+  };
+
   return {
     props: {
       post,
       preview,
+      prevPost,
+      nextPost,
     },
   };
 };
