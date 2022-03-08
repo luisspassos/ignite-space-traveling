@@ -10,7 +10,7 @@
 
 </p>
 
-<img align="right" src="public/logo.svg" width="35%" alt="spacetraveling">
+<img align="right" src="public/images/logo.svg" width="35%" alt="spacetraveling">
 
 ## Tópicos
 
