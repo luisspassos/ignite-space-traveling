@@ -16,7 +16,7 @@ import { Comments } from '../../components/Comments';
 import { ExitPreviewButton } from '../../components/ExitPreviewButton';
 import { PreviewDataType } from '../../types';
 
-interface Post {
+type Post = {
   first_publication_date: string | null;
   editDate: string | null;
   data: {
@@ -31,8 +31,8 @@ interface Post {
         text: string;
       }[];
     }[];
-  };
-}
+  } | null;
+};
 
 type AnotherPost = {
   uid: string;
@@ -191,21 +191,21 @@ export const getStaticProps: GetStaticProps<PostProps> = async ({
     })
   ).results[0];
 
-  const post =
-    {
-      uid: response.uid,
-      first_publication_date: response.first_publication_date,
-      editDate:
-        response.first_publication_date === response.last_publication_date
-          ? null
-          : format(
-              new Date(response.last_publication_date),
-              "'* editado em' dd MMM yyyy, 'ás' k:m",
-              {
-                locale: ptBR,
-              }
-            ),
-      data: {
+  const post = {
+    uid: response.uid,
+    first_publication_date: response.first_publication_date,
+    editDate:
+      response.first_publication_date === response.last_publication_date
+        ? null
+        : format(
+            new Date(response.last_publication_date),
+            "'* editado em' dd MMM yyyy, 'ás' k:m",
+            {
+              locale: ptBR,
+            }
+          ),
+    data:
+      {
         title: response.data.title,
         subtitle: response.data.subtitle,
         banner: {
@@ -213,8 +213,8 @@ export const getStaticProps: GetStaticProps<PostProps> = async ({
         },
         author: response.data.author,
         content: response.data.content,
-      },
-    } ?? null;
+      } ?? null,
+  };
 
   const prevPost = prevPostData
     ? {
