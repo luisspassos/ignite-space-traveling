@@ -12,31 +12,33 @@
 
 <img align="right" src="public/images/logo.svg" width="35%" alt="spacetraveling">
 
-## Tópicos
+## Topics
 
-[Sobre o spacetraveling](#sobre-o-spacetraveling)
+[About the spacetraveling](#about-the-spacetraveling)
 
-[Tecnologias](#tecnologias)
+[Technologies](#technologies)
 
-[Instalação e uso](#instalação-e-uso)
+[Installation and use](#installation-and-use)
 
-[Licença](#licença)
+[License](#license)
 
 <br>
 
-## Sobre o spacetraveling
+## About the spacetraveling
 
-O spacetraveling foi desenvolvido durante um desafio da trilha ReactJS do bootcamp Ignite. O desafio consistia em criar do zero uma aplicação de um blog com Prismic CMS a partir de um layout do Figma.
+Spacetraveling was developed during a ReactJS trail challenge from the Ignite bootcamp. The challenge was to create from scratch a blog application with Prismic CMS from a Figma layout.
 
 <br>
 
 <p align="center">
-  <img src=".github/cover.png" alt="Página inicial">
+  <img src=".github/cover.png" alt="Home Page">
 </p>
 
-## Tecnologias
+## Technologies
 
-Tecnologias e ferramentas utilizadas no desenvolvimento do projeto:
+
+
+Technologies and tools used in the project development:
 
 - [Next.js](https://nextjs.org/)
 - [TypeScript](https://www.typescriptlang.org/)
@@ -46,41 +48,42 @@ Tecnologias e ferramentas utilizadas no desenvolvimento do projeto:
 
 <br>
 
-## Instalação e uso
+## Installation and use
 
 ```bash
-# Abra um terminal e copie este repositório com o comando
-git clone https://github.com/luisspassos/spacetraveling.git
-# ou use a opção de download.
 
-# Entre na pasta web com
+# Open a terminal and copy this repository with the command
+git clone https://github.com/luisspassos/spacetraveling.git
+# or use the download option.
+
+# Enter the web folder with
 cd spacetraveling
 
-# Instale as dependências
+# Install the dependencies
 yarn install
 
-# Adicione suas variáveis de ambiente no arquivo .env.example
-# e renomeie o arquivo para .env
+# Add your environment variables in the .env.example file
+# and rename the file to .env
 
-# Rode o servidor de desenvolvimento
+# Run the development server
 yarn dev
 ```
 
 <br>
 
 
-## Licença
+## License
 <a href="https://opensource.org/licenses/MIT">
     <img alt="License" src="https://img.shields.io/badge/license-MIT-FF57B2?style=flat-square">
 </a>
 
 <br>
 
-Esse projeto está sob a licença MIT. Veja o arquivo [LICENSE](/LICENSE) para mais detalhes.
+This project is under the MIT license. See the [LICENSE](/LICENSE) file for more details.
 
 ---
 
-Feito com :heart: by [Luís Passos](https://github.com/luisspassos)
+Made with :heart: by [Luís Passos](https://github.com/luisspassos)
 
 
 [![Gmail Badge](https://img.shields.io/badge/-luis.passos013@gmail.com-FF57B2?style=flat-square&logo=Gmail&logoColor=white&link=mailto:luis.passos013@gmail.com)](mailto:luis.passos013@gmail.com)
