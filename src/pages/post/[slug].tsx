@@ -191,29 +191,30 @@ export const getStaticProps: GetStaticProps<PostProps> = async ({
     })
   ).results[0];
 
-  const post = {
-    uid: response.uid,
-    first_publication_date: response.first_publication_date,
-    editDate:
-      response.first_publication_date === response.last_publication_date
-        ? null
-        : format(
-            new Date(response.last_publication_date),
-            "'* editado em' dd MMM yyyy, 'ás' k:m",
-            {
-              locale: ptBR,
-            }
-          ),
-    data: {
-      title: response.data.title,
-      subtitle: response.data.subtitle,
-      banner: {
-        url: response.data.banner.url,
+  const post =
+    {
+      uid: response.uid,
+      first_publication_date: response.first_publication_date,
+      editDate:
+        response.first_publication_date === response.last_publication_date
+          ? null
+          : format(
+              new Date(response.last_publication_date),
+              "'* editado em' dd MMM yyyy, 'ás' k:m",
+              {
+                locale: ptBR,
+              }
+            ),
+      data: {
+        title: response.data.title,
+        subtitle: response.data.subtitle,
+        banner: {
+          url: response.data.banner.url,
+        },
+        author: response.data.author,
+        content: response.data.content,
       },
-      author: response.data.author,
-      content: response.data.content,
-    },
-  };
+    } ?? null;
 
   const prevPost = prevPostData
     ? {
