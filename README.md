@@ -53,10 +53,10 @@ Technologies and tools used in the project development:
 ```bash
 
 # Open a terminal and copy this repository with the command
-git clone https://github.com/luisspassos/spacetraveling.git
+git clone https://github.com/luisspassos/spacetraveling
 # or use the download option.
 
-# Enter the web folder with
+# Enter the folder with
 cd spacetraveling
 
 # Install the dependencies
