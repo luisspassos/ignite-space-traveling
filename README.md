@@ -26,8 +26,6 @@
 
 ## About the spacetraveling
 
-[https://spacetraveling-blog-kohl.vercel.app](https://spacetraveling-blog-kohl.vercel.app)
-
 Spacetraveling was developed during a ReactJS trail challenge from the Ignite bootcamp. The challenge was to create from scratch a blog application with Prismic CMS from a Figma layout.
 
 <br>
